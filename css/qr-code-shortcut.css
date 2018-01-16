@@ -1,0 +1,8 @@
+img.qr-code {
+    display: block;
+    margin: 0 auto;
+}
+
+.qr-code-msg {
+    margin: 8px 0 30px;
+}

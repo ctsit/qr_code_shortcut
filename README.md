@@ -9,5 +9,14 @@ This is a REDCap external module that provides a shortcut to generate a survey Q
 - Go to **Control Center > Manage External Modules** and enable QR Code Shortcut.
 - Go to your project home page, click on **Manage External Modules** link, and then enable QR Code Shortcut.
 
+## Configuration
+This module does not require further configuration - just make sure that surveys are enabled for your project.
+
 ## How to use it
-TODO.
+Once you add a new record, you might see the **Generate Survey QR Code** button as follows:
+
+![Generate QR code button](img/qr_code_button.png)
+
+Click on the button to see the survey QR code right away on your screen. Obs.: this operation will save your form.
+
+![QR code image](img/qr_code_image.png)
