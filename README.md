@@ -1,7 +1,7 @@
 # QR Code Shortcut
 This is a REDCap external module that provides a shortcut to generate a survey QR code for a new data entry.
 
-This module provides a survey kickstart button to be used in cases where the form needs to be addressed to the applicants as a QR code. The button wraps the following steps into one single procedure:
+This module provides a survey kickstart button to be used when the form needs to be addressed to the applicants as a QR code. The button wraps the following steps into one single procedure:
 1. Save new record's first form
 1. Handle eventual warnings about required fields
 1. Click on survey options
