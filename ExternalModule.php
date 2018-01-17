@@ -25,24 +25,40 @@ class ExternalModule extends AbstractExternalModule {
             return;
         }
 
-        if (empty($_GET['__qrcode'])) {
-            if (!empty($record)) {
-                return;
+        $settings = array();
+
+        if (empty($_GET['__show_qr_code'])) {
+            if (empty($record)) {
+                $title = 'Generate Survey QR Code';
+                $op = 'generate';
+
+                $args = array(
+                    'pid' => $project_id,
+                    'id' => getAutoId(),
+                    'page' => $instrument,
+                    'event_id' => $event_id,
+                    'auto' => 1,
+                    '__show_qr_code' => 1,
+                    '__msg' => 'The survey QR code has been generated successfully.',
+                );
+
+                $settings['redirectPath'] = APP_PATH_WEBROOT . 'DataEntry/index.php?' . http_build_query($args);
+            }
+            else {
+                $title = 'Display Survey QR Code';
+                $op = 'display';
             }
 
             // Setting up button to generate QR code.
-            $msg = urlencode('The survey QR code has been generated successfully.');
-            $settings = array(
-                'submitPath' => APP_PATH_WEBROOT . 'DataEntry/index.php?pid=' . $project_id . '&id=' . getAutoId() . '&event_id=' . $event_id . '&page=' . $instrument . '&__qrcode=1&auto=1&__msg=' . $msg,
-                'buttonContents' => '<button class="btn btn-success" id="submit-btn-qrcode" name="submit-btn-qrcode" onclick="qrCodeShortcut.generateQRCode();">Generate Survey QR Code</button>',
-            );
+            $settings['buttonContents'] = '<button class="btn btn-success" id="submit-btn-qrcode" name="submit-btn-qrcode" onclick="qrCodeShortcut.' . $op . 'QRCode();">' . $title . '</button>';
         }
-        elseif (!empty($record)) {
+
+        if (!empty($record)) {
             // Displaying QR code.
             list(, $hash) = Survey::getFollowupSurveyParticipantIdHash($Proj->forms[$instrument]['survey_id'], $record, $event_id, false, $instance);
-            $settings = array(
-                'imageContents' => '<img class="qr-code" src="' . APP_PATH_WEBROOT . 'Surveys/survey_link_qrcode.php?pid=' . $project_id . '&hash=' . $hash . '">',
-            );
+
+            $extra_classes = empty($_GET['__show_qr_code']) ? ' qr-code-hidden' : '';
+            $settings['imageContents'] = '<img class="qr-code' . $extra_classes . '" src="' . APP_PATH_WEBROOT . 'Surveys/survey_link_qrcode.php?pid=' . $project_id . '&hash=' . $hash . '">';
 
             if (isset($_GET['__msg'])) {
                 // Showing success message.
@@ -50,9 +66,6 @@ class ExternalModule extends AbstractExternalModule {
             }
 
             $this->includeCss('css/qr-code-shortcut.css');
-        }
-        else {
-            return;
         }
 
         $this->setJsSetting('qrCodeShortcut', $settings);

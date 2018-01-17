@@ -28,3 +28,7 @@ Once you add a new record, you might see the **Generate Survey QR Code** button 
 Click on the button to see the survey QR code right away on your screen. Obs.: this operation will save your form.
 
 ![QR code image](img/qr_code_image.png)
+
+For existing records, a "Display Survey QR Code" button is displayed, which shows up the QR code (without submitting/saving the form).
+
+![Generate QR code button](img/qr_code_button2.png)

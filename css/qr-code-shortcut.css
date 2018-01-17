@@ -3,6 +3,10 @@ img.qr-code {
     margin: 0 auto;
 }
 
+img.qr-code-hidden {
+    display: none;
+}
+
 .qr-code-msg {
     margin: 8px 0 30px;
 }
