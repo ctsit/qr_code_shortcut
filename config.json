@@ -1,7 +1,7 @@
 {
     "name": "QR Code Shortcut",
     "namespace": "QRCodeShortcut\\ExternalModule",
-    "description": "Provides a shortcut to generate a survey QR code for a new data entry. <strong><a href=\"https://github.com/ctsit/qr_code_shortcut\">See full documetation here</a></strong>.",
+    "description": "Provides a shortcut to generate a survey QR code for a new data entry. <strong><a href=\"https://github.com/ctsit/qr_code_shortcut\">See full documentation here</a></strong>.",
     "permissions": [
         "redcap_data_entry_form_top"
     ],
@@ -9,12 +9,12 @@
         {
             "name": "Philip Chase",
             "email": "pbc@ufl.edu",
-            "institution": "CTS-IT - University of Florida"
+            "institution": "University of Florida - CTSI"
         },
         {
             "name": "Tiago Bember",
             "email": "tbembersimeao@ufl.edu",
-            "institution": "CTS-IT - University of Florida"
+            "institution": "University of Florida - CTSI"
         }
     ]
 }
