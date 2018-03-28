@@ -10,7 +10,7 @@ This module provides a survey kickstart button to be used when the form needs to
 1. Get QR code
 
 ## Prerequisites
-- REDCap >= 8.0.0 (for versions < 8.0.0, [REDCap Modules](https://github.com/vanderbilt/redcap-external-modules) is required).
+- REDCap >= 8.0.3
 
 ## Installation
 - Clone this repo into `<redcap-root>/modules/qr_code_shortcut_<version_number>`.
