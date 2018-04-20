@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to the QR Code Shortcut module will be documented in this file.
 
+## [1.1.0] - 2018-04-20
+### Added
+- Add support for repeating form instances. (Tiago Bember Simeao)
+
+### Changed
+- Setting minimum REDCap version to 8.0.3 (Tiago Bember Simeao)
+
 
 ## [1.0.0] - 2018-01-19
 ### Summary
