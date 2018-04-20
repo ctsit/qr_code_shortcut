@@ -8,6 +8,7 @@ namespace QRCodeShortcut\ExternalModule;
 
 use ExternalModules\AbstractExternalModule;
 use ExternalModules\ExternalModules;
+use Records;
 use Survey;
 
 /**
@@ -18,7 +19,7 @@ class ExternalModule extends AbstractExternalModule {
     /**
      * @inheritdoc.
      */
-    function redcap_data_entry_form_top($project_id, $record, $instrument, $event_id, $group_id) {
+    function redcap_data_entry_form_top($project_id, $record = null, $instrument, $event_id, $group_id = null, $repeat_instance = 1) {
         global $Proj, $surveys_enabled;
 
         if (!$surveys_enabled || !isset($Proj->forms[$instrument]['survey_id'])) {
@@ -26,36 +27,37 @@ class ExternalModule extends AbstractExternalModule {
         }
 
         $settings = array();
+        $form_has_data = $record ? Records::formHasData($record, $instrument, $event_id, $repeat_instance) : false;
 
         if (empty($_GET['__show_qr_code'])) {
-            if (empty($record)) {
+            if ($form_has_data) {
+                $title = 'Display Survey QR Code';
+                $op = 'display';
+            }
+            else {
                 $title = 'Generate Survey QR Code';
                 $op = 'generate';
 
                 $args = array(
                     'pid' => $project_id,
-                    'id' => getAutoId(),
+                    'id' => $record ? $record : getAutoId(),
                     'page' => $instrument,
                     'event_id' => $event_id,
-                    'auto' => 1,
+                    'instance' => $repeat_instance,
                     '__show_qr_code' => 1,
                     '__msg' => 'The survey QR code has been generated successfully.',
                 );
 
                 $settings['redirectPath'] = APP_PATH_WEBROOT . 'DataEntry/index.php?' . http_build_query($args);
             }
-            else {
-                $title = 'Display Survey QR Code';
-                $op = 'display';
-            }
 
             // Setting up button to generate QR code.
             $settings['buttonContents'] = '<button class="btn btn-success" id="submit-btn-qrcode" name="submit-btn-qrcode" onclick="qrCodeShortcut.' . $op . 'QRCode();">' . $title . '</button>';
         }
 
-        if (!empty($record)) {
+        if ($form_has_data) {
             // Displaying QR code.
-            list(, $hash) = Survey::getFollowupSurveyParticipantIdHash($Proj->forms[$instrument]['survey_id'], $record, $event_id, false, $instance);
+            list(, $hash) = Survey::getFollowupSurveyParticipantIdHash($Proj->forms[$instrument]['survey_id'], $record, $event_id, false, $repeat_instance);
 
             $extra_classes = empty($_GET['__show_qr_code']) ? ' qr-code-hidden' : '';
             $settings['imageContents'] = '<img class="qr-code' . $extra_classes . '" src="' . APP_PATH_WEBROOT . 'Surveys/survey_link_qrcode.php?pid=' . $project_id . '&hash=' . $hash . '">';
