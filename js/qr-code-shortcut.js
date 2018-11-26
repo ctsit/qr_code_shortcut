@@ -18,14 +18,24 @@ qrCodeShortcut.displayQRCode = function() {
     $('#submit-btn-qrcode').hide();
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    if (typeof qrCodeShortcut.buttonContents !== 'undefined') {
-        // Inserting button that generates QR code.
-        $('#formSaveTip .btn-group').after(qrCodeShortcut.buttonContents);
+$(function() {
+    if (typeof qrCodeShortcut.displayFormSaveBtnTooltip !== 'undefined') {
+        return;
     }
 
-    if (typeof qrCodeShortcut.imageContents !== 'undefined') {
-        // Inserting QR image.
-        $('#questiontable').before(qrCodeShortcut.imageContents);
+    qrCodeShortcut.displayFormSaveBtnTooltip = displayFormSaveBtnTooltip;
+
+    displayFormSaveBtnTooltip = function() {
+        qrCodeShortcut.displayFormSaveBtnTooltip();
+
+        if (typeof qrCodeShortcut.buttonContents !== 'undefined') {
+            // Inserting button that generates QR code.
+            $('#formSaveTip .btn-group').after(qrCodeShortcut.buttonContents);
+        }
+
+        if (typeof qrCodeShortcut.imageContents !== 'undefined') {
+            // Inserting QR image.
+            $('#questiontable').before(qrCodeShortcut.imageContents);
+        }
     }
 });
