@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to the QR Code Shortcut module will be documented in this file.
 
+## [1.1.1] - 2018-11-26
+### Changed
+- Making sure the DOM is ready before manipulating it. (Tiago Bember Simeao)
+
+
 ## [1.1.0] - 2018-04-20
 ### Added
 - Add support for repeating form instances. (Tiago Bember Simeao)
